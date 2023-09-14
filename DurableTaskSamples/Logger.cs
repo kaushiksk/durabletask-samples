@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DtfTester
+namespace DurableTaskSamples
 {
     public static class Logger
     {

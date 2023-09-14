@@ -1,4 +1,4 @@
-﻿namespace DtfTester
+﻿namespace DurableTaskSamples
 {
     using DurableTask.Core;
     using System;

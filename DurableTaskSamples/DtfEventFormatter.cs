@@ -1,4 +1,4 @@
-﻿namespace DtfTester
+﻿namespace DurableTaskSamples
 {
     using Microsoft.Practices.EnterpriseLibrary.SemanticLogging;
     using Microsoft.Practices.EnterpriseLibrary.SemanticLogging.Formatters;
