@@ -23,9 +23,9 @@
             return instance;
         }
 
-        private static async Task<OrchestrationInstance> StartMultipleActivitiesTestingOrchestration(string instanceId, TaskHubClient taskHubClient)
+        private static async Task<OrchestrationInstance> StartMultipleActivitiesOrchestration(string instanceId, TaskHubClient taskHubClient)
         {
-            var instance = await taskHubClient.CreateOrchestrationInstanceAsync(typeof(MultipleActivitiesTestingOrchestration), instanceId, 1);
+            var instance = await taskHubClient.CreateOrchestrationInstanceAsync(typeof(MultipleActivitiesOrchestration), instanceId, 1);
             return instance;
         }
 
@@ -76,7 +76,7 @@
         {
             taskHubWorker.AddTaskOrchestrations(
                 typeof(SameActivityMultipleSchedulesOrchestration),
-                typeof(MultipleActivitiesTestingOrchestration),
+                typeof(MultipleActivitiesOrchestration),
                 typeof(ContinueAsNewTestingOrchestration),
                 typeof(ErrorHandlingWithContinueAsNewOrchestration),
                 typeof(InlineRetriesTestingOrchestration),
@@ -97,7 +97,7 @@
         private static readonly Dictionary<int, string> commandLineOptions = new Dictionary<int, string>()
         {
             { 1, nameof(SameActivityMultipleSchedulesOrchestration)},
-            { 2, nameof(MultipleActivitiesTestingOrchestration)},
+            { 2, nameof(MultipleActivitiesOrchestration)},
             { 3, nameof(ContinueAsNewTestingOrchestration)},
             { 4, nameof(ErrorHandlingWithContinueAsNewOrchestration)},
             { 5, nameof(InlineRetriesTestingOrchestration)},
@@ -113,7 +113,7 @@
             testInstances = new Dictionary<string, Func<Task<OrchestrationInstance>>>()
             {
                 { nameof(SameActivityMultipleSchedulesOrchestration), async () => await StartSameActivityMultipleSchedulesOrchestration(instanceId, taskHubClient) },
-                { nameof(MultipleActivitiesTestingOrchestration), async () => await StartMultipleActivitiesTestingOrchestration(instanceId, taskHubClient) },
+                { nameof(MultipleActivitiesOrchestration), async () => await StartMultipleActivitiesOrchestration(instanceId, taskHubClient) },
                 { nameof(ContinueAsNewTestingOrchestration), async() => await StartContinueAsNewTestingOrchestration(instanceId, taskHubClient) },
                 { nameof(ErrorHandlingWithContinueAsNewOrchestration), async () => await  StartErrorHandlingWithContinueAsNewOrchestration(instanceId, taskHubClient) },
                 { nameof(InlineRetriesTestingOrchestration), async() => await StartInlineRetriesTestingOrchestration(instanceId, taskHubClient) },

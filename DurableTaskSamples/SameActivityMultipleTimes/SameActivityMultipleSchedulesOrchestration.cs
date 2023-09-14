@@ -6,7 +6,7 @@
 
     /// <summary>
     /// Basic orchestration while schedules the same activity multiple times
-    /// We test the following things here:
+    /// We notice the following things here:
     ///   - When the same activity is schedule multiple times separately, each is a separate instance
     ///   - Same activity can be scheduled again with same input - the orchestration is smart enough to
     ///     identify that this is a separate invocation and not the first one.

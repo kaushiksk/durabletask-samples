@@ -5,9 +5,16 @@ namespace DurableTaskSamples
     using System;
     using System.Threading.Tasks;
 
-    public class MultipleActivitiesTestingOrchestration : TaskOrchestration<bool, int>
+    /// <summary>
+    /// Basic orchestration scheduling multiple activities in sequence.
+    /// 
+    /// We notice the following things here:
+    ///   - The orchestration runs multiple times, but each activity only executes once
+    ///   - The orchestration completes execution as soon as it finds an activity to schedule
+    /// </summary>
+    public class MultipleActivitiesOrchestration : TaskOrchestration<bool, int>
     {
-        private const string Source = "MultipleActivitiesTestingOrchestration";
+        private const string Source = "MultipleActivitiesOrchestration";
 
         public override async Task<bool> RunTask(OrchestrationContext context, int input)
         {
