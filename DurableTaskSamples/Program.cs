@@ -3,11 +3,13 @@
     using DurableTask.AzureStorage;
     using DurableTask.Core;
     using DurableTask.Core.Tracing;
+    using Microsoft.Data.Edm.Library.Expressions;
     using Microsoft.Extensions.Logging;
     using Microsoft.Practices.EnterpriseLibrary.SemanticLogging;
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Diagnostics;
     using System.Diagnostics.Tracing;
     using System.Threading;
@@ -155,25 +157,35 @@
             Console.WriteLine($"Executing {testName}");
             string instanceId = Guid.NewGuid().ToString();
 
-            var eventListener = new ObservableEventListener();
-            eventListener.LogToConsole(formatter: new DtfEventFormatter());
-            eventListener.EnableEvents(DefaultEventSource.Log, EventLevel.Informational);
+            bool shouldLogDtfEventTraces = bool.Parse(ConfigurationManager.AppSettings["LogDtfCoreEventTraces"]);
+            if (shouldLogDtfEventTraces)
+            {
+                var eventListener = new ObservableEventListener();
+                eventListener.LogToConsole(formatter: new DtfEventFormatter());
+                eventListener.EnableEvents(DefaultEventSource.Log, EventLevel.Informational);
+            }
 
-            if (string.IsNullOrEmpty(DtfTesterSettings.AzureStorageConnectionString))
+            var storageConnectionString = ConfigurationManager.AppSettings["AzureStorageConnectionString"];
+            if (string.IsNullOrEmpty(storageConnectionString))
             {
                 Console.WriteLine("Azure Storage Connection String is empty, please provide valid connection string");
                 Environment.Exit(0);
             }
 
-            // Uncomment LoggerFactory if you want logs from Azure.Storage
-            var settings = new AzureStorageOrchestrationServiceSettings
+            var taskHubName = ConfigurationManager.AppSettings["TaskHubName"];
+            var azureStorageSettings = new AzureStorageOrchestrationServiceSettings
             {
-                StorageAccountDetails = new StorageAccountDetails { ConnectionString = DtfTesterSettings.AzureStorageConnectionString },
-                TaskHubName = DtfTesterSettings.TaskHubName,
-                // LoggerFactory = LoggerFactory.Create(builder => builder.AddConsole()),
+                StorageAccountDetails = new StorageAccountDetails { ConnectionString = storageConnectionString },
+                TaskHubName = taskHubName,
             };
 
-            var orchestrationServiceAndClient = new AzureStorageOrchestrationService(settings);
+            bool shouldLogAzureStorageTraces = bool.Parse(ConfigurationManager.AppSettings["LogAzureStorageTraces"]);
+            if (shouldLogAzureStorageTraces)
+            {
+                azureStorageSettings.LoggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+            }
+
+            var orchestrationServiceAndClient = new AzureStorageOrchestrationService(azureStorageSettings);
             Console.WriteLine(orchestrationServiceAndClient.ToString());
             var taskHubClient = new TaskHubClient(orchestrationServiceAndClient);
             var taskHubWorker = new TaskHubWorker(orchestrationServiceAndClient);
