@@ -3,14 +3,11 @@
     using DurableTask.AzureStorage;
     using DurableTask.Core;
     using DurableTask.Core.Tracing;
-    using Microsoft.Data.Edm.Library.Expressions;
     using Microsoft.Extensions.Logging;
     using Microsoft.Practices.EnterpriseLibrary.SemanticLogging;
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Configuration;
-    using System.Diagnostics;
     using System.Diagnostics.Tracing;
     using System.Threading;
     using System.Threading.Tasks;
@@ -42,9 +39,9 @@
             return instance;
         }
 
-        private static async Task<OrchestrationInstance> StartInlineRetriesTestingOrchestration(string instanceId, TaskHubClient taskHubClient)
+        private static async Task<OrchestrationInstance> StartInlineForLoopTestingOrchestration(string instanceId, TaskHubClient taskHubClient)
         {
-            var instance = await taskHubClient.CreateOrchestrationInstanceAsync(typeof(InlineRetriesTestingOrchestration), instanceId, 5);
+            var instance = await taskHubClient.CreateOrchestrationInstanceAsync(typeof(InlineForLoopTestingOrchestration), instanceId, 5);
             return instance;
         }
 
@@ -79,7 +76,7 @@
                 typeof(MultipleActivitiesOrchestration),
                 typeof(ContinueAsNewTestingOrchestration),
                 typeof(ErrorHandlingWithContinueAsNewOrchestration),
-                typeof(InlineRetriesTestingOrchestration),
+                typeof(InlineForLoopTestingOrchestration),
                 typeof(ErrorHandlingWithInlineRetriesOrchestration),
                 typeof(FixedPollingWithInlineRetriesOrchestration),
                 typeof(UnboundedPollingWithInlineRetriesOrchestration),
@@ -100,7 +97,7 @@
             { 2, nameof(MultipleActivitiesOrchestration)},
             { 3, nameof(ContinueAsNewTestingOrchestration)},
             { 4, nameof(ErrorHandlingWithContinueAsNewOrchestration)},
-            { 5, nameof(InlineRetriesTestingOrchestration)},
+            { 5, nameof(InlineForLoopTestingOrchestration)},
             { 6, nameof(ErrorHandlingWithInlineRetriesOrchestration)},
             { 7, nameof(FixedPollingWithInlineRetriesOrchestration)},
             { 8, nameof(UnboundedPollingWithInlineRetriesOrchestration)},
@@ -116,7 +113,7 @@
                 { nameof(MultipleActivitiesOrchestration), async () => await StartMultipleActivitiesOrchestration(instanceId, taskHubClient) },
                 { nameof(ContinueAsNewTestingOrchestration), async() => await StartContinueAsNewTestingOrchestration(instanceId, taskHubClient) },
                 { nameof(ErrorHandlingWithContinueAsNewOrchestration), async () => await  StartErrorHandlingWithContinueAsNewOrchestration(instanceId, taskHubClient) },
-                { nameof(InlineRetriesTestingOrchestration), async() => await StartInlineRetriesTestingOrchestration(instanceId, taskHubClient) },
+                { nameof(InlineForLoopTestingOrchestration), async() => await StartInlineForLoopTestingOrchestration(instanceId, taskHubClient) },
                 { nameof(ErrorHandlingWithInlineRetriesOrchestration), async() => await StartErrorHandlingWithInlineRetriesOrchestration(instanceId, taskHubClient) },
                 { nameof(FixedPollingWithInlineRetriesOrchestration), async() => await StartFixedPollingWithInlineRetriesOrchestration(instanceId, taskHubClient) },
                 { nameof(UnboundedPollingWithInlineRetriesOrchestration), async() => await StartUnboundedPollingWithInlineRetriesOrchestration(instanceId, taskHubClient) },

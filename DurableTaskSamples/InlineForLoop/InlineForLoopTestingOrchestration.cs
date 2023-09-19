@@ -5,9 +5,9 @@ namespace DurableTaskSamples
     using System;
     using System.Threading.Tasks;
 
-    public class InlineRetriesTestingOrchestration : TaskOrchestration<bool, int>
+    public class InlineForLoopTestingOrchestration : TaskOrchestration<bool, int>
     {
-        private const string Source = "InlineRetriesTestingOrchestration";
+        private const string Source = "InlineForLoopTestingOrchestration";
 
         public override async Task<bool> RunTask(OrchestrationContext context, int input)
         {
