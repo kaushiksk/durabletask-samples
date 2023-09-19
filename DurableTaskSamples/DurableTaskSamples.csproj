@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DurableTaskSamples.Comon\DurableTaskSamples.Common.csproj" />
+    <ProjectReference Include="..\DurableTaskSamples.Common\DurableTaskSamples.Common.csproj" />
   </ItemGroup>
 
 </Project>

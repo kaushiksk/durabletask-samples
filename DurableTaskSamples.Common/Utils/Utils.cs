@@ -1,14 +1,9 @@
 ﻿using DurableTask.AzureStorage;
-using DurableTask.Core;
 using DurableTask.Core.Exceptions;
 using DurableTaskSamples.Common.Exceptions;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DurableTaskSamples.Common.Utils
 {

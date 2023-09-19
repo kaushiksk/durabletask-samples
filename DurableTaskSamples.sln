@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DurableTaskClient", "Durabl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DurableTaskWorker", "DurableTaskWorker\DurableTaskWorker.csproj", "{0C263930-7B99-4BB9-B00A-2E06CECAB4C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DurableTaskSamples.Common", "DurableTaskSamples.Comon\DurableTaskSamples.Common.csproj", "{9F094A07-8204-4F50-B7DB-D41FF9E66AA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DurableTaskSamples.Common", "DurableTaskSamples.Common\DurableTaskSamples.Common.csproj", "{9F094A07-8204-4F50-B7DB-D41FF9E66AA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
