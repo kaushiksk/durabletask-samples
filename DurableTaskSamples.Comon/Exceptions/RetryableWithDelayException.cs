@@ -6,12 +6,12 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DurableTaskSamples
+namespace DurableTaskSamples.Common.Exceptions
 {
     public class RetryableWithDelayException : Exception, ISerializable
     {
         public static readonly string IdentifierString = "Expected to retry after ";
-        
+
         public RetryableWithDelayException(int retryAfter, string message)
             : base(message + IdentifierString + retryAfter.ToString())
         {

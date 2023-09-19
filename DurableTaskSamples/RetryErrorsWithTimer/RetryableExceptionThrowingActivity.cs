@@ -2,9 +2,8 @@
 namespace DurableTaskSamples
 {
     using DurableTask.Core;
-    using DurableTask.Core.Common;
-    using System;
-    using System.Threading.Tasks;
+    using DurableTaskSamples.Common.Exceptions;
+    using DurableTaskSamples.Common.Logging;
 
     public class RetryableExceptionThrowingActivity : TaskActivity<int, bool>
     {

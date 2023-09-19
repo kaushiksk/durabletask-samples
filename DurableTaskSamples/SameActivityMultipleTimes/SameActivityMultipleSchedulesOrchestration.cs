@@ -1,6 +1,7 @@
 ﻿namespace DurableTaskSamples
 {
     using DurableTask.Core;
+    using DurableTaskSamples.Common.Logging;
     using System;
     using System.Threading.Tasks;
 

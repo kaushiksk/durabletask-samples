@@ -2,6 +2,7 @@
 namespace DurableTaskSamples
 {
     using DurableTask.Core;
+    using DurableTaskSamples.Common.Logging;
     using System;
     using System.Threading.Tasks;
 
@@ -17,7 +18,7 @@ namespace DurableTaskSamples
 
                 for (int i = 0; i < input; i++)
                 {
-                    Logger.Log(Source, $"Executing for {i}");
+                    Logger.LogVerbose(Source, $"Executing for {i}");
                     await context.ScheduleTask<bool>(typeof(GreetingActivity), i);
                 }
 

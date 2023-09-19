@@ -2,6 +2,7 @@
 namespace DurableTaskSamples
 {
     using DurableTask.Core;
+    using DurableTaskSamples.Common.Logging;
     using System.Threading.Tasks;
 
     public class FirstActivity : TaskActivity<int, bool>

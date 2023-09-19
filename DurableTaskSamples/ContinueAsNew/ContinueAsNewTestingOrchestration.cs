@@ -1,9 +1,13 @@
 ﻿namespace DurableTaskSamples
 {
     using DurableTask.Core;
+    using DurableTaskSamples.Common.Logging;
     using System;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// This orchestration helps understand the ContinueAsNew behavior
+    /// </summary>
     public class ContinueAsNewTestingOrchestration : TaskOrchestration<bool, int>
     {
         private const string Source = "ContinueAsNewTestingOrchestration";

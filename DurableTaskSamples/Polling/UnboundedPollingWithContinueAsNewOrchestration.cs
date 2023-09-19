@@ -2,6 +2,7 @@
 namespace DurableTaskSamples
 {
     using DurableTask.Core;
+    using DurableTaskSamples.Common.Logging;
     using System;
     using System.Threading.Tasks;
 
@@ -14,7 +15,7 @@ namespace DurableTaskSamples
         {
             Logger.Log(Source, $"Initiating, IsReplaying: {context.IsReplaying}");
 
-            Logger.Log(Source, $"Polling attempt {input}");
+            Logger.LogVerbose(Source, $"Polling attempt {input}");
             bool result = await context.ScheduleTask<bool>(typeof(PollingActivity), input);
 
             if (result)
@@ -25,9 +26,9 @@ namespace DurableTaskSamples
             }
             else
             {
-                Logger.Log(Source, $"Polling did not return success, scheduling next poll after {PollingIntervalInSeconds} seconds.");
+                Logger.LogVerbose(Source, $"Polling did not return success, scheduling next poll after {PollingIntervalInSeconds} seconds.");
                 int newInput = await context.CreateTimer<int>(context.CurrentUtcDateTime.AddSeconds(PollingIntervalInSeconds), input + 1);
-                Logger.Log(Source, $"Timer expired, continuing as new");
+                Logger.Log(Source, $"Polling timer elapsed, continuing as new");
                 context.ContinueAsNew(newInput);
             }
 

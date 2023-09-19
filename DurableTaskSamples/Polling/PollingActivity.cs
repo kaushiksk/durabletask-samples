@@ -3,6 +3,7 @@ namespace DurableTaskSamples
 {
     using DurableTask.Core;
     using DurableTask.Core.Common;
+    using DurableTaskSamples.Common.Logging;
     using System;
     using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace DurableTaskSamples
     {
         private readonly int numPolls;
 
-        public PollingActivity(int numPolls = 12)
+        public PollingActivity(int numPolls = 8)
         {
             this.numPolls = numPolls;
         }

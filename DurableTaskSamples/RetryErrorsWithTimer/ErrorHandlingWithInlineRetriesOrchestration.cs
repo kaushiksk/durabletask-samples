@@ -3,6 +3,8 @@ namespace DurableTaskSamples
 {
     using DurableTask.Core;
     using DurableTask.Core.Exceptions;
+    using DurableTaskSamples.Common.Logging;
+    using DurableTaskSamples.Common.Utils;
     using System;
     using System.Threading.Tasks;
 

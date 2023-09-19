@@ -1,18 +1,13 @@
-﻿namespace DurableTaskSamples
+﻿namespace DurableTaskSamples.Common.Logging
 {
     using Microsoft.Practices.EnterpriseLibrary.SemanticLogging;
     using Microsoft.Practices.EnterpriseLibrary.SemanticLogging.Formatters;
     using Microsoft.Practices.EnterpriseLibrary.SemanticLogging.Schema;
-    using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.IO;
-    using System.Linq;
-    using System.Runtime.Serialization;
     using System.Text;
-    using System.Threading.Tasks;
 
-    public class DtfEventFormatter: IEventTextFormatter
+    public class DtfEventFormatter : IEventTextFormatter
     {
         private static HashSet<string> AllowedPayloads = new HashSet<string>()
         {

@@ -2,6 +2,7 @@
 namespace DurableTaskSamples
 {
     using DurableTask.Core;
+    using DurableTaskSamples.Common.Logging;
     using System.Threading.Tasks;
 
     public class GreetingActivity: AsyncTaskActivity<int, bool>
@@ -13,6 +14,8 @@ namespace DurableTaskSamples
             await Task.Delay(5).ConfigureAwait(false);
             Logger.Log(Source, $"Executing {input}");
             Logger.Log(Source, "Completed");
+
+            await Task.Delay(2000);
             
             if (input < 2)
             {

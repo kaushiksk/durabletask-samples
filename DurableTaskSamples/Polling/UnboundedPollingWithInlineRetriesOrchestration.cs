@@ -2,6 +2,7 @@
 namespace DurableTaskSamples
 {
     using DurableTask.Core;
+    using DurableTaskSamples.Common.Logging;
     using System;
     using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace DurableTaskSamples
     {
         private const string Source = "UnboundedPollingWithInlineRetriesOrchestration";
         private const int PollingIntervalInSeconds = 10;
-        private const int MaxPollingPerOrchestrationInstance = 10;
+        private const int MaxPollingPerOrchestrationInstance = 5;
 
         public override async Task<bool> RunTask(OrchestrationContext context, int input)
         {
@@ -28,7 +29,7 @@ namespace DurableTaskSamples
                 }
                 else
                 {
-                    Logger.Log(Source, $"Scheduling next poll after {PollingIntervalInSeconds} seconds.");
+                    Logger.LogVerbose(Source, $"Scheduling next poll after {PollingIntervalInSeconds} seconds.");
                     await context.CreateTimer<int>(context.CurrentUtcDateTime.AddSeconds(PollingIntervalInSeconds), input + 1);
                 }
             }

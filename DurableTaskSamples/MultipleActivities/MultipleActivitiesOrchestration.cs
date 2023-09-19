@@ -2,6 +2,7 @@
 namespace DurableTaskSamples
 {
     using DurableTask.Core;
+    using DurableTaskSamples.Common.Logging;
     using System;
     using System.Threading.Tasks;
 
@@ -21,11 +22,15 @@ namespace DurableTaskSamples
             try
             {
                 Logger.Log(Source, $"Initiating, IsReplaying: {context.IsReplaying}");
-                bool result = await context.ScheduleTask<bool>(typeof(FirstActivity), input);
-                Logger.Log(Source, $"FirstActivity returned {result}");
 
+                Logger.LogVerbose(Source, $"Scheduling FirstActivity");
+                bool result = await context.ScheduleTask<bool>(typeof(FirstActivity), input);
+                Logger.LogVerbose(Source, $"FirstActivity returned {result}");
+
+                Logger.LogVerbose(Source, $"Scheduling SecondActivity");
                 result = await context.ScheduleTask<bool>(typeof(SecondActivity), input + 1);
-                Logger.Log(Source, $"SecondActivity returned {result}");
+                Logger.LogVerbose(Source, $"SecondActivity returned {result}");
+
                 Logger.Log(Source, "Completed");
                 return result;
             }
