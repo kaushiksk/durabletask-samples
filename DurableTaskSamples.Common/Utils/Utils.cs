@@ -75,5 +75,17 @@ namespace DurableTaskSamples.Common.Utils
         {
             return bool.Parse(ConfigurationManager.AppSettings["DisableOrchestrationVerboseLogs"]);
         }
+
+        public static bool ShouldLaunchInstanceManager()
+        {
+            return bool.Parse(ConfigurationManager.AppSettings["LaunchInstanceManager"]);
+        }
+
+        public static void WriteToConsoleWithColor(string text, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine(text);
+            Console.ResetColor();
+        }
     }
 }

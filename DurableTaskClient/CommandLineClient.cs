@@ -3,6 +3,7 @@ using DurableTaskSamples;
 using DurableTaskSamples.Common.Utils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -38,7 +39,7 @@ namespace DurableTaskClient
 
         private static void PrintCommandLine()
         {
-            WriteToConsoleWithColor("Select an option:", ConsoleColor.Yellow);
+            Utils.WriteToConsoleWithColor("Select an option:", ConsoleColor.Yellow);
 
             foreach (KeyValuePair<int, Type> kvp in commandLineOptions)
             {
@@ -48,7 +49,7 @@ namespace DurableTaskClient
                 Console.WriteLine($"{key}. {value}");
             }
 
-            WriteToConsoleWithColor("Enter you input: ", ConsoleColor.Yellow);
+            Utils.WriteToConsoleWithColor("Enter you input: ", ConsoleColor.Yellow);
         }
 
         public static async Task Start()
@@ -79,24 +80,28 @@ namespace DurableTaskClient
                 var instance = await taskHubClient.CreateOrchestrationInstanceAsync(orchestrationSample, instanceId, orchestrationInput);
                 Console.WriteLine("Workflow Instance Started: " + instance);
 
+                if (Utils.ShouldLaunchInstanceManager())
+                {
+                    using (var p = new Process())
+                    {
+                        p.StartInfo.FileName = $"..\\DurableTaskManager\\bin\\Debug\\net6.0\\DurableTaskManager.exe";
+                        p.StartInfo.Arguments = instanceId;
+                        p.StartInfo.UseShellExecute = true;
+                        p.Start();
+                    }
+                }
+
                 int timeout = 5;
                 Console.WriteLine($"Waiting up to {timeout} minutes for completion.");
 
                 OrchestrationState taskResult = await taskHubClient.WaitForOrchestrationAsync(instance, TimeSpan.FromMinutes(timeout), CancellationToken.None);
-                WriteToConsoleWithColor($"Task done. Orchestration status: {taskResult?.OrchestrationStatus}", ConsoleColor.Green);
+                Utils.WriteToConsoleWithColor($"Task done. Orchestration status: {taskResult?.OrchestrationStatus}", ConsoleColor.Green);
                 Console.WriteLine();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
-        }
-
-        private static void WriteToConsoleWithColor(string text, ConsoleColor color)
-        {
-            Console.ForegroundColor = color;
-            Console.WriteLine(text);
-            Console.ResetColor();
         }
     }
 }

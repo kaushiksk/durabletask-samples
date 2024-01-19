@@ -7,9 +7,7 @@ By default the app will use the local development server of [Azure Storage Simul
 You can also use an actual Azure Storage instance in the cloud, update the `AzureStorageConnectionString` config in [App.config](./App.config) in that case.
 
 ## Running the samples
-If you're running the samples from Visual Studio, make sure that you set both `DurableTaskClient` and `DurableTaskWorker` as startup projects. To do this, in the Solution Explorer of VS, Right-Click on the solution > Properties > Startup Projects > Multiple Startup Projects. <br/>
-You can then run the samples by pressing F5. The `DurableTaskClient` window will display a list of samples to choose from and `DurableTaskWorker`window will print the execution logs. <br/>
-
+It is recommended to run the samples from a commandline, ideally in split terminals to see the logs from the client and worker side-by-side. <br/>
 If you're running the samples from the command line, navigate to the root folder with the sln, and run `dotnet build`. <br/>
 
 In Terminal 1, start the client:
@@ -17,14 +15,24 @@ In Terminal 1, start the client:
 > cd DurableTaskClient
 > dotnet run
 ```
-
-<br/>
+The `DurableTaskClient` window will display a list of samples to choose from
 
 In Terminal 2, start the worker:
 ```
 > cd DurableTaskWorker
 > dotnet run
 ```
+
+`DurableTaskWorker`window will print the execution logs.
+<br/>
+
+Once you choose a sample from the client, you will see the execution logs in the worker terminal.
+
+The program will also launch a new window where you can manage the instance and perform actions like `Pause` and `Resume` on the orchestration instance.<br/>
+
+If you're running the samples from Visual Studio, make sure that you set `DurableTaskClient`, `DurableTaskWorker` and `DurableTaskManager` as startup projects. To do this, in the Solution Explorer of VS, Right-Click on the solution > Properties > Startup Projects > Multiple Startup Projects. <br/>
+Also ensure `LaunchInstanceManager` is set to false is [App.config](./App.config) as the path to this is hardcoded assuming that `DurableTaskClient` is run from a terminal.
+You can then run the samples by pressing F5. <br/>
 
 ## Simulating Disaster Scenarios
 To simulate a disaster scenario for the worker, and understand the execution flow when a worker recovers, it is recommended to run the `DurableTaskClient` and `DurableTaskWorker` from two separate terminals. <br />
